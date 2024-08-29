@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch(process.env.REACT_APP_API_URL + '/api/tasks', {
+      const response = await fetch('https://task-tracker-backend-o4m0.onrender.com/api/tasks', {
         headers: {'Authorization': `Bearer ${user.token}`},
       })
       const json = await response.json()

@@ -1,4 +1,5 @@
 {
+  "proxy": "https://task-tracker-backend-o4m0.onrender.com",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
