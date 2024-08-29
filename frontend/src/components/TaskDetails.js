@@ -11,7 +11,7 @@ const TaskDetails = ({ task }) => {
       return
     }
 
-    const response = await fetch('https://task-tracker-backend-o4m0.onrender.com/api/tasks/' + task._id, {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/api/tasks/' + task._id, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${user.token}`
