@@ -11,13 +11,17 @@ const taskSchema = new Schema({
     type: String,
     required: true
   },
-  time_spent: {
+  time: {
     type: String,
     required: true
   },
   notes: {
     type: String,
     required: true
+  },
+  miles: {
+    type: String,
+    required: false
   },
   user_id: {
     type: String,

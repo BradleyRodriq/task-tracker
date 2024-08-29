@@ -6,7 +6,7 @@ export const tasksReducer = (state, action) => {
   switch (action.type) {
     case 'SET_TASKS':
       return {
-        workouts: action.payload
+        tasks: action.payload
       }
     case 'CREATE_TASK':
       return {
@@ -14,7 +14,7 @@ export const tasksReducer = (state, action) => {
       }
     case 'DELETE_TASK':
       return {
-        workouts: state.tasks.filter((w) => w._id !== action.payload._id)
+        tasks: state.tasks.filter((w) => w._id !== action.payload._id)
       }
     default:
       return state

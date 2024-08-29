@@ -11,26 +11,26 @@ const Navbar = () => {
   }
 
   return (
-    <header>
-      <div className="container">
-        <Link to="/">
-          <h1>Tasker</h1>
-        </Link>
-        <nav>
+    <header id="navbar">
+      <div id="logo_cont">
+      <Link id="logo" to="/">
+          <h1>tasker.</h1>
+      </Link>
+      </div>
+        <nav id="navbar_links">
           {user && (
             <div>
-              <span>{user.email}</span>
-              <button onClick={handleClick}>Log out</button>
+              <span id="user_email">{user.email}</span>
+              <button id="logout_btn" onClick={handleClick}>Log out</button>
             </div>
           )}
           {!user && (
-            <div>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
+            <div id="link_btns">
+              <Link className="link_btn" to="/login">Login</Link>
+              <Link className="link_btn" to="/signup">Signup</Link>
             </div>
           )}
         </nav>
-      </div>
     </header>
   )
 }

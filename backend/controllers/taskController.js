@@ -15,33 +15,39 @@ const getTask = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such task'})
+  }
+
+  const task = await Task.findById(id)
+
+  if (!task) {
     return res.status(404).json({error: 'No such workout'})
   }
 
-  const workout = await Workout.findById(id)
-
-  if (!workout) {
-    return res.status(404).json({error: 'No such workout'})
-  }
-
-  res.status(200).json(tasks)
+  res.status(200).json(task)
 }
 
 
 // create new workout
 const createTask = async (req, res) => {
-  const {title, load, reps} = req.body
+  const {title, date, time, notes, miles} = req.body
 
   let emptyFields = []
 
   if(!title) {
     emptyFields.push('title')
   }
-  if(!load) {
-    emptyFields.push('load')
+  if(!date) {
+    emptyFields.push('date')
   }
-  if(!reps) {
-    emptyFields.push('reps')
+  if(!time) {
+    emptyFields.push('time')
+  }
+  if(!notes) {
+    emptyFields.push('notes')
+  }
+  if(!miles) {
+    emptyFields.push('miles')
   }
   if(emptyFields.length > 0) {
     return res.status(400).json({ error: 'Please fill in all the fields', emptyFields })
@@ -50,8 +56,8 @@ const createTask = async (req, res) => {
   // add doc to db
   try {
     const user_id = req.user._id
-    const workout = await Workout.create({title, load, reps, user_id})
-    res.status(200).json(workout)
+    const task = await Task.create({title, date, time, notes, miles, user_id})
+    res.status(200).json(task)
   } catch (error) {
     res.status(400).json({error: error.message})
   }
@@ -62,16 +68,16 @@ const deleteTask = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such task'})
   }
 
-  const workout = await Workout.findOneAndDelete({_id: id})
+  const task = await Task.findOneAndDelete({_id: id})
 
-  if (!workout) {
-    return res.status(400).json({error: 'No such workout'})
+  if (!task) {
+    return res.status(400).json({error: 'No such task'})
   }
 
-  res.status(200).json(workout)
+  res.status(200).json(task)
 }
 
 // update a workout
@@ -79,18 +85,18 @@ const updateTask = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such task'})
   }
 
-  const workout = await Workout.findOneAndUpdate({_id: id}, {
+  const task = await Task.findOneAndUpdate({_id: id}, {
     ...req.body
   })
 
-  if (!workout) {
-    return res.status(400).json({error: 'No such workout'})
+  if (!task) {
+    return res.status(400).json({error: 'No such task'})
   }
 
-  res.status(200).json(workout)
+  res.status(200).json(task)
 }
 
 

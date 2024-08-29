@@ -1,11 +1,9 @@
 import { useTasksContext } from '../hooks/useTasksContext'
 import { useAuthContext } from '../hooks/useAuthContext'
 
-// date fns
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
-
 const TaskDetails = ({ task }) => {
-  const { dispatch } = useTasksContext()
+
+  const { tasks, dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
   const handleClick = async () => {
@@ -27,13 +25,14 @@ const TaskDetails = ({ task }) => {
   }
 
   return (
-    <div className="workout-details">
-      <h4>{task.title}</h4>
-      <p><strong>Load (kg): </strong>{task.load}</p>
-      <p><strong>Reps: </strong>{task.reps}</p>
-      <p>{formatDistanceToNow(new Date(task.createdAt), { addSuffix: true })}</p>
-      <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
-    </div>
+      <div id="task_info">
+        <p className='box'>{task.title}</p>
+        <p className='box'>{task.date}</p>
+        <p className='box'>{task.time}</p>
+        <p className='box'>{task.miles}</p>
+        <p className='box'>{task.notes}</p>
+        <span className='box' onClick={handleClick}>x</span>
+      </div>
   )
 }
 

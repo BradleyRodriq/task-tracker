@@ -7,8 +7,10 @@ const TaskForm = () => {
   const { user } = useAuthContext()
 
   const [title, setTitle] = useState('')
-  const [load, setLoad] = useState('')
-  const [reps, setReps] = useState('')
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('')
+  const [notes, setNotes] = useState('')
+  const [miles, setMiles] = useState('')
   const [error, setError] = useState(null)
   const [emptyFields, setEmptyFields] = useState([])
 
@@ -20,11 +22,11 @@ const TaskForm = () => {
       return
     }
 
-    const workout = {title, load, reps}
+    const task = {title, date, time, notes, miles}
 
-    const response = await fetch('/api/workouts', {
+    const response = await fetch('/api/tasks', {
       method: 'POST',
-      body: JSON.stringify(workout),
+      body: JSON.stringify(task),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.token}`
@@ -38,19 +40,21 @@ const TaskForm = () => {
     }
     if (response.ok) {
       setTitle('')
-      setLoad('')
-      setReps('')
+      setDate('')
+      setTime('')
+      setNotes('')
+      setMiles('')
       setError(null)
       setEmptyFields([])
-      dispatch({type: 'CREATE_WORKOUT', payload: json})
+      dispatch({type: 'CREATE_TASK', payload: json})
     }
   }
 
   return (
-    <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+    <form id="form_container" onSubmit={handleSubmit}>
+      <h2>Add a new task</h2>
 
-      <label>Excersize Title:</label>
+      <label>Task</label>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
@@ -58,23 +62,38 @@ const TaskForm = () => {
         className={emptyFields.includes('title') ? 'error' : ''}
       />
 
-      <label>Load (in kg):</label>
+      <label>Date</label>
       <input
-        type="number"
-        onChange={(e) => setLoad(e.target.value)}
-        value={load}
-        className={emptyFields.includes('load') ? 'error' : ''}
+        type="text"
+        onChange={(e) => setDate(e.target.value)}
+        value={date}
+        className={emptyFields.includes('date') ? 'error' : ''}
       />
 
-      <label>Reps:</label>
+      <label>Time Spent</label>
       <input
-        type="number"
-        onChange={(e) => setReps(e.target.value)}
-        value={reps}
-        className={emptyFields.includes('reps') ? 'error' : ''}
+        type="text"
+        onChange={(e) => setTime(e.target.value)}
+        value={time}
+        className={emptyFields.includes('time') ? 'error' : ''}
       />
 
-      <button>Add Workout</button>
+      <label>Miles</label>
+      <input
+        type="text"
+        onChange={(e) => setMiles(e.target.value)}
+        value={miles}
+        className={emptyFields.includes('miles') ? 'error' : ''}
+      />
+
+      <label>Notes</label>
+      <textarea
+        onChange={(e) => setNotes(e.target.value)}
+        value={notes}
+        className={emptyFields.includes('notes') ? 'error' : ''}
+      ></textarea>
+
+      <button id="submit-btn">Submit</button>
       {error && <div className="error">{error}</div>}
     </form>
   )

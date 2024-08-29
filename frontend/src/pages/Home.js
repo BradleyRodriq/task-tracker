@@ -28,13 +28,21 @@ const Home = () => {
   }, [dispatch, user])
 
   return (
-    <div className="home">
-      <div className="workouts">
+    <div id="home">
+      <TaskForm />
+      <div id="scrollable">
+      <div id="wrapper">
+        <div className='box a'>Name</div>
+        <div className='box a'>Date</div>
+        <div className='box a'>Time</div>
+        <div className='box a'>Miles</div>
+        <div className='box a'>Notes</div>
+        <div className='box a'>Delete</div>
         {tasks && tasks.map((task) => (
           <TaskDetails key={task._id} task={task} />
         ))}
       </div>
-      <TaskForm />
+      </div>
     </div>
   )
 }
