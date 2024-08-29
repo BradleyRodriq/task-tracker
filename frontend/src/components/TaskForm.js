@@ -24,7 +24,7 @@ const TaskForm = () => {
 
     const task = {title, date, time, notes, miles}
 
-    const response = await fetch('/api/tasks', {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/api/tasks', {
       method: 'POST',
       body: JSON.stringify(task),
       headers: {

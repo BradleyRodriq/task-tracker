@@ -6,7 +6,6 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
-import TaskDetails from './components/TaskDetails'
 
 function App() {
   const { user } = useAuthContext()

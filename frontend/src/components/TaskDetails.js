@@ -3,7 +3,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 const TaskDetails = ({ task }) => {
 
-  const { tasks, dispatch } = useTasksContext()
+  const { dispatch } = useTasksContext()
   const { user } = useAuthContext()
 
   const handleClick = async () => {
@@ -11,7 +11,7 @@ const TaskDetails = ({ task }) => {
       return
     }
 
-    const response = await fetch('/api/tasks/' + task._id, {
+    const response = await fetch(process.env.REACT_APP_API_URL + '/api/tasks/' + task._id, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${user.token}`
